@@ -10,13 +10,36 @@ public class RecursiveMethods {
 	 * @return base ^ exponent
 	 */
 	public static double exponent(int base, int exp) {
-		
-			// FIXME Recursively compute base^exp
-			return 0;
+		double result;
+		if(exp==0){
+			result = 1;
+		}
+		else if (exp>0){
+			result = base*exponent(base,(exp-1));
+		}
+		else{ // making sure it works if the exponent is negative (the code should work fine if the base is negative)
+			result = ((1.0/base)*exponent(base,(exp+1)));
+		}
+		return result;
 			
 	}
 
-	
+	/// notes to help me make exponent():
+	/// let's take 2 as a base as an example
+	/// 2^4 = 2*2*2*2 = 2*2^3
+	/// 2^3 = 2*2*2 = 2*2^2
+	/// 2^2 = 2*2 = 2*2^1
+	/// 2^1 = 2*2^0 = 2*1
+	/// 2^0 = 1
+	/// 
+	/// making sure it works with a negative exponent:
+	/// 2^-4 = (1/2)*2^-3
+	/// 2^-3 = (1/2)*2^-2
+	/// 2^-2 = (1/2)*2^-1
+	/// 2^-1 = (1/2)*2^0
+	/// 2^0 = 1
+
+
 
 	/**
 	 * Recursively compute the sum of elements in an array
@@ -25,11 +48,11 @@ public class RecursiveMethods {
 	 * @return the sum of the elements in values
 	 */
 	public static int arraySum(int[] array) {
+		int sum = 0;
 		
-			// FIXME: Recursively compute the sum of the values in an array
-			return 0;
+		return sum;
 			
-	}
+	} // i'll do this after the studio since it refers to the studio
 
 	/**
 	 * Recursively computes string representations of dragon curves
@@ -38,9 +61,17 @@ public class RecursiveMethods {
 	 * @return the nth dragon curve
 	 */
 	public static String dragon(int n) {
-		
-			// FIXME Recursively compute dragon curves
-			return "";
+		if (n==0){
+			return "F-H";
+		}
+		else{
+			String string = dragon(n-1);
+			string=string.replace("F","f");
+			string=string.replace("H","h");
+			string=string.replace("f","F-H");
+			string=string.replace("h","F+H");
+			return string;
+		}
 			
 	}
 
@@ -60,5 +91,12 @@ public class RecursiveMethods {
 			// FIXME Find and return the length of the longest path in the array
 			return 0;
 			
+	}
+
+	public static void main(String[] args){
+		System.out.println(exponent(2,3));
+		System.out.println(exponent(-2,3));
+		System.out.println(exponent(2,-3));
+		System.out.println(dragon(1));
 	}
 }
