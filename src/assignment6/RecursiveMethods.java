@@ -87,9 +87,60 @@ public class RecursiveMethods {
 	 * @return the length of the longest path that was found
 	 */
 	public static int maxPathLength(boolean[][] chart, int r, int c) {
+
+		int length;
+
+		if (chart[r][c]==false){
+			length=0;
+		}
+
+		else{
+
+			int up;
+			if (r>0 && chart[r-1][c]){
+				up = maxPathLength(chart, r-1, c) + 1;
+			}
+			else {
+				up = 1;
+			}
+			int down;
+			if (r<chart.length && chart[r+1][c]){
+				down = maxPathLength(chart, r+1, c) + 1;
+			}
+			else {
+				down = 1;
+			}
+			int left;
+			if (c>0 && chart[r][c-1]){
+				left = maxPathLength(chart, r, c-1) + 1;
+			}
+			else {
+				left = 1;
+			}
+			int right;
+			if (c<chart[0].length && chart[r][c+1]){
+				right = maxPathLength(chart, r, c+1);
+			}
+			else {
+				right = 1;
+			}
+
+			if (up>=down && up>=left && up>=right){
+				length = up;
+			}
+			else if (down>=up && down>=left && down>=right){
+				length = down;
+			}
+			else if (left>=up && left>=down && left>=right){
+				length = left;
+			}
+			else {
+				length = right;
+			}
+
+		}
 		
-			// FIXME Find and return the length of the longest path in the array
-			return 0;
+		return length;
 			
 	}
 
