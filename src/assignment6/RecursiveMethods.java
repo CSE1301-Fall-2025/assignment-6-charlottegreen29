@@ -17,7 +17,7 @@ public class RecursiveMethods {
 		else if (exp>0){
 			result = base*exponent(base,(exp-1));
 		}
-		else{ // making sure it works if the exponent is negative (the code should work fine if the base is negative)
+		else{ // making sure it works if the exponent is negative (the code should work fine if the base is a decimal)
 			result = ((1.0/base)*exponent(base,(exp+1)));
 		}
 		return result;
@@ -49,10 +49,19 @@ public class RecursiveMethods {
 	 */
 	public static int arraySum(int[] array) {
 		int sum = 0;
-		
-		return sum;
-			
-	} // i'll do this after the studio since it refers to the studio
+		int i = array.length-1;
+		return arraySumHelper(array, sum, i);
+	}
+
+	public static int arraySumHelper(int[] array, int sum, int i){
+		if (i<0){
+			return sum;
+		}
+		else {
+			return array[i] + arraySumHelper(array,sum,i-1);
+		}
+	}
+
 
 	/**
 	 * Recursively computes string representations of dragon curves
@@ -96,6 +105,8 @@ public class RecursiveMethods {
 
 		else{
 
+			chart[r][c]=false;
+
 			int up;
 			if (r>0 && chart[r-1][c]){
 				up = maxPathLength(chart, r-1, c) + 1;
@@ -103,13 +114,15 @@ public class RecursiveMethods {
 			else {
 				up = 1;
 			}
+
 			int down;
-			if (r<chart.length && chart[r+1][c]){
+			if (r<chart.length-1 && chart[r+1][c]){
 				down = maxPathLength(chart, r+1, c) + 1;
 			}
 			else {
 				down = 1;
 			}
+
 			int left;
 			if (c>0 && chart[r][c-1]){
 				left = maxPathLength(chart, r, c-1) + 1;
@@ -117,13 +130,16 @@ public class RecursiveMethods {
 			else {
 				left = 1;
 			}
+
 			int right;
-			if (c<chart[0].length && chart[r][c+1]){
-				right = maxPathLength(chart, r, c+1);
+			if (c<chart[0].length-1 && chart[r][c+1]){
+				right = maxPathLength(chart, r, c+1) + 1;
 			}
 			else {
 				right = 1;
 			}
+
+			chart[r][c]=true;
 
 			if (up>=down && up>=left && up>=right){
 				length = up;
@@ -139,6 +155,8 @@ public class RecursiveMethods {
 			}
 
 		}
+
+		
 		
 		return length;
 			
